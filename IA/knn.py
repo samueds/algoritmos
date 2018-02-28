@@ -54,7 +54,7 @@ def Knn(pontos, k, dado):
             maior = resp[x]
             ans = x
     
-    return x
+    return ans
 
 
 #main
