@@ -1,24 +1,13 @@
 import math
 import random
 import sys
-import seaborn as sns
-import matplotlib.pyplot as pyplot
-import pandas as pd
-
-
-
-class Ponto:
-    
+class Ponto:   
     cords = []
-    
     def __init__(self, cords):
         self.cords = [x for x in cords]
         self.grupo = None
-
-
+        
 class Grupo:
-
-
     def __init__(self, centroide, grupo):
         self.centroide = centroide
         self.grupo = grupo
@@ -33,14 +22,9 @@ def exp(x):
 def dist(a, b):
 
     dist = 0
-
     for i in range(len(a.cords)):
-
         dist += exp(a.cords[i] - b.cords[i])
-
     return math.sqrt(dist)
-
-
 
 #lista de pontos do modelo, K do KMeans
 def Kmeans(pontos, k, iterMax):
@@ -48,17 +32,14 @@ def Kmeans(pontos, k, iterMax):
     grupos = []
     infinito = sys.maxsize
     n = len(pontos)
-
     aux = [i for i in range(n)]
     random.shuffle(aux)
-
     aux = aux[:k]
-
+  
     #definindo K centroides aleatorios
-    
+  
     grupos = [Grupo(pontos[aux[i]], i) for i in range(k)]
-    
-
+   
     while iterMax:
         
         for i in range(n):
@@ -94,14 +75,10 @@ def Kmeans(pontos, k, iterMax):
             cordenadas = [x/len(grupos[i].pontos) for x in cordenadas]
 
             grupos[i].centroide = Ponto(cordenadas)
-           
-        
-                
+                    
         iterMax -= 1
 
     print("Grupos e seus pontos:")
-        
-    
 
     for i in range (k):
         print('Cluster %d' %(i + 1))
@@ -111,39 +88,21 @@ def Kmeans(pontos, k, iterMax):
                 print(str(pontos[j].cords[l]) + " ", end = '')
             print("")
 
-    
-
 #main
-
-
 arq = open('iris.txt', 'r')
 
 disney = arq.readlines()
 
 pontos = []
 
-cont1 = 0
-cont2 = 0
-cont3 = 0
-
 for linha in disney:
     x =linha.split(",")
   
     if(len(x) != 5): break
 
-    if(x[4] == 'Iris-setosa\n'):
-        cont1 += 1;
-
-    if(x[4] == 'Iris-versicolor\n'):
-        cont2 += 1;
-
-    if(x[4] == 'Iris-virginica\n'):
-        cont3 += 1;
-
     cords = [float(x[0]) , float(x[1]), float(x[2]), float(x[3])]
     ponto = Ponto(cords)
     pontos.append(ponto)
-
 
 print("Digite o K para o algoritmo de KNN:")
 
