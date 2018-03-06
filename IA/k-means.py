@@ -1,7 +1,9 @@
 import math
 import random
 import sys
-
+import seaborn as sns
+import matplotlib.pyplot as pyplot
+import pandas as pd
 
 
 
@@ -9,18 +11,21 @@ class Ponto:
     
     cords = []
     
-    def __init__(self, cords, cluster = None):
+    def __init__(self, cords):
         self.cords = [x for x in cords]
-        self.grupo = cluster
+        self.grupo = None
 
 
 class Grupo:
 
 
-    def __init__(self, centroide, grupo, aux):
+    def __init__(self, centroide, grupo):
         self.centroide = centroide
         self.grupo = grupo
-        self.pontos = [aux]
+        self.pontos = []
+
+def mean(numbers):
+    return float(sum(numbers)) / max(len(numbers), 1)
 
 def exp(x):
     return x*x
@@ -51,7 +56,7 @@ def Kmeans(pontos, k, iterMax):
 
     #definindo K centroides aleatorios
     
-    grupos = [Grupo(pontos[aux[i]], i, aux[i]) for i in range(k)]
+    grupos = [Grupo(pontos[aux[i]], i) for i in range(k)]
     
 
     while iterMax:
@@ -68,19 +73,34 @@ def Kmeans(pontos, k, iterMax):
                     menorValor = distancia
                     centroideMaisProximo = j
 
-            if (i  not in grupos[centroideMaisProximo].pontos):
+            if (i not in grupos[centroideMaisProximo].pontos):
 
                 grupos[centroideMaisProximo].pontos.append(i)
+                
+                if(pontos[i].grupo != centroideMaisProximo and pontos[i].grupo != None):
+                    grupos[pontos[i].grupo].pontos.remove(i)
                 pontos[i].grupo = centroideMaisProximo
-                if(pontos[i].grupo != centroideMaisProximo):
-                    grupos[centroideMaisProximo].pontos.remove(i)
 
         #calcular novos centroides
+
+        for i in range(k):
+
+            cordenadas = [0 for i in range(len(pontos[0].cords))]
+
+            for j in grupos[i].pontos:
+
+                cordenadas = [x + y for x, y in zip(cordenadas, pontos[j].cords)]
+
+            cordenadas = [x/len(grupos[i].pontos) for x in cordenadas]
+
+            grupos[i].centroide = Ponto(cordenadas)
+           
         
                 
         iterMax -= 1
 
     print("Grupos e seus pontos:")
+        
     
 
     for i in range (k):
@@ -95,22 +115,35 @@ def Kmeans(pontos, k, iterMax):
 
 #main
 
+
 arq = open('iris.txt', 'r')
 
 disney = arq.readlines()
 
 pontos = []
 
-
+cont1 = 0
+cont2 = 0
+cont3 = 0
 
 for linha in disney:
     x =linha.split(",")
   
     if(len(x) != 5): break
+
+    if(x[4] == 'Iris-setosa\n'):
+        cont1 += 1;
+
+    if(x[4] == 'Iris-versicolor\n'):
+        cont2 += 1;
+
+    if(x[4] == 'Iris-virginica\n'):
+        cont3 += 1;
+
     cords = [float(x[0]) , float(x[1]), float(x[2]), float(x[3])]
     ponto = Ponto(cords)
     pontos.append(ponto)
-    
+
 
 print("Digite o K para o algoritmo de KNN:")
 
@@ -121,3 +154,4 @@ print("Digite o numero maximo de iteracoes")
 iterMax = int(input())    
     
 Kmeans(pontos, k, iterMax)
+
