@@ -52,11 +52,13 @@ private:
   vector< int > ptr;
   vector< int > dist;
   vector< int > que;
-  bool bfs() {
+  bool bfs() 
+  {
     int sq = 0, ed = 0;
     fill(dist.begin(), dist.end(), -1);
     que[ed++] = sta; dist[sta] = 0; 
-    while(sq != ed) {
+    while(sq != ed)
+    {
       int x = que[sq++];
       for(int i = 0; i < (int)adj[x].size(); ++i)
       {
