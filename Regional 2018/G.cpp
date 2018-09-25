@@ -5,7 +5,6 @@ using namespace std;
 int p,refe,c;
 int demanda[1005];
 int estoques[1005];
-
 vector<vector<int> >g;
 int flow[2005][2005];
 
