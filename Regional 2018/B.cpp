@@ -54,20 +54,10 @@ int main()
 	while(n--)
 	{
 		int a,b; scanf("%d%d",&a,&b);
-		
-		if(grid[a][b] == win)
-		{
-			printf("Y\n");
-			return 0;
-		}
-	
-		
 		ans ^= grid[a][b];
 	}
 	
 	if(ans) printf("Y\n");
 	else printf("N\n");
-	
-	
 	return 0;
 }
