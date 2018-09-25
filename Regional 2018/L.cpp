@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 
-
 using namespace std;
 const int N = 1e5 + 2;
 const int M = 20;
