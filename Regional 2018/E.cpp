@@ -7,7 +7,6 @@ string a,b;
 int main()
 {
 	cin >> a >> b;
-
 	int dif = a.size() - b.size();
 	int ans = 0;
 	for(int i = 0 ; i <= dif; i++)
