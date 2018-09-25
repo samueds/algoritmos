@@ -75,7 +75,6 @@ int main()
 	}
 
 	int ans = pd(0,0);
-
 	if(ans < 0) printf("-1\n");
 	else
 		printf("%d\n", ans);
