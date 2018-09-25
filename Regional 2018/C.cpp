@@ -32,7 +32,6 @@ int main()
     {
         int x = horizontais[i].second;
         ans += treeh.order_of_key(x);
-
         treeh.insert(x);
     }
     for(int i = 0 ; i < v ; i++)
