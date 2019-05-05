@@ -7,12 +7,17 @@ unsigned long long a,b,c,d;
 int main()
 {
 
-	while(~scanf("%d%d%d%d",&a,&b,&c,&d))
+	while(~scanf("%llu%llu%llu%llu",&a,&b,&c,&d))
 	{
 
 	    unsigned long long dig = c / d; 
 	  
 	    bool first = false; bool second = false;
+	    if(a == b)
+	    {
+	    	printf("Empate\n");
+	    	continue;
+	    }
 	    if(c % d == 0)
 	    {
 	    	if(a == 0) first = true;
@@ -20,7 +25,7 @@ int main()
 	    }
 	    else
 	    {
-	    	for (int i = 0; i < 1000 ; i++)
+	    	for (int i = 0; i < 1000000 ; i++)
 		    { 
 		        c = c - (dig * d); 
 		        if (c == 0) 

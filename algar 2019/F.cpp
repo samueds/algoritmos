@@ -10,7 +10,7 @@ struct event
 	bool operator <(const event &q) const
 	{
 		if(a == q.a) return b < q.b;
-		return a < q.b;
+		return b < q.b;
 	}
 }events[N];
 

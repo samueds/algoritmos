@@ -3,7 +3,7 @@
 using namespace std;
 
 int t;
-int q,lq,lr,lp;
+double q,lq,lr,lp;
 
 int main()
 {
@@ -11,11 +11,11 @@ int main()
 
 	while(t--)
 	{
-		scanf("%d%d%d%d",&q,&lq,&lr,&lp);
-		int p = (int)ceil((q*(lq + lr))/(double)lp);
-		printf("O livro contera %d pagina", p);
-		if(p > 1) printf("s");
-		printf("\n");
+		scanf("%lf%lf%lf%lf",&q,&lq,&lr,&lp);
+		double x = (q*(lq + lr))/lp;
+		int p = ceil(x);
+		if( p == 1) printf("O livro contera %d pagina.\n",p);
+		else printf("O livro contera %d paginas.\n",p);
 	}
 
 	return 0;

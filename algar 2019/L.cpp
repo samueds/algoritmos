@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define ll long long
+#define ll unsigned long long
 using namespace std;
 
 int n,m,k;
@@ -98,7 +98,7 @@ int main()
 	{
 		int a,b; scanf("%d%d",&a,&b);
 		a--;b--;
-		printf("%d\n", ans.mat[a][b]);
+		printf("%llu\n", ans.mat[a][b]);
 	}
 
 	return 0;

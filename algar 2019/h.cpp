@@ -28,7 +28,8 @@ bool dentro(int x, int y)
 	return false;
 }
 
-int c[N];
+int c[N*N];
+int resp=0;
 
 int findset(int u)
 {
@@ -48,7 +49,7 @@ void unionset(int a, int b)
 
 void doit(int x, int y)
 {
-	
+	if(mat[x][y] <= 128) return;
 	for(int i = 0 ; i < 8 ; i++)
 	{
 		int xx = x + dx[i];
@@ -56,13 +57,14 @@ void doit(int x, int y)
 		if(dentro(xx,yy))
 		{
 			int foo = abs(mat[x][y] - mat[xx][yy]);
-			if(foo <= 10)
+			if(foo <= 10 && mat[xx][yy] > 128)
 			{
 				
 				int a = get(x,y);
 				int b = get(xx,yy);
 				if(findset(a) != findset(b))
 				{
+					resp--;
 					unionset(a,b);
 				}
 			}
@@ -73,13 +75,14 @@ void doit(int x, int y)
 int main()
 {
 	scanf("%d%d",&n,&m);
-
+	resp = n*m;
 	for(int i = 0 ; i < n ; i++)
 	{
 		for(int j = 0 ; j < m ; j++)
 		{
 			scanf("%d", &mat[i][j]);
 			c[get(i,j)] = get(i,j);
+			if(mat[i][j] <= 128) resp--;
 		}
 	} 
 	for(int i = 0 ; i < n ; i++)
@@ -91,8 +94,12 @@ int main()
 	}
 	set<int>gandalf;
 
-	for(int i = 1 ; i <= n*m ; i++) gandalf.insert(findset(i)); 
+	for(int i = 1 ; i <= n*m ; i++)
+	{
+		gandalf.insert(findset(i)); 
+		//cout << findset(i) << endl;
+	}
 	
-	printf("%d\n", (int)gandalf.size());
+	printf("%d\n", resp);
 	return 0;
 }
